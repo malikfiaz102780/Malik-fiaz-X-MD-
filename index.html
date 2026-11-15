@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malik Fiaz MD - WhatsApp Bot & Commands Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-green: #22c55e;
+            --accent-glow: rgba(34, 197, 94, 0.3);
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .bot-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #22c55e, #166534);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 0 20px var(--accent-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--accent-glow); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .owner-tag {
+            font-size: 14px;
+            color: var(--accent-green);
+            background: rgba(34, 197, 94, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        p.desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            display: flex;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .input-box:focus-within {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .input-box span {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 14px 16px;
+            color: var(--text-muted);
+            font-size: 16px;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .input-box input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 16px;
+            padding: 0 15px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--accent-green);
+            color: #0b0f19;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            margin-top: 20px;
+            background: var(--bg-color);
+            border: 1px dashed var(--accent-green);
+            padding: 15px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .code-display {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent-green);
+            letter-spacing: 2px;
+            margin: 10px 0;
+            direction: ltr;
+        }
+
+        .btn-copy {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            border: 1px solid var(--accent-green);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 5px;
+        }
+
+        .btn-copy:hover {
+            background: var(--accent-green);
+            color: #0b0f19;
+        }
+
+        /* Commands Section Styles */
+        .commands-section {
+            margin-top: 35px;
+            text-align: right;
+        }
+
+        .commands-section h2 {
+            font-size: 18px;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cmd-category {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .cmd-category h3 {
+            font-size: 15px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .cmd-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            direction: ltr;
+            justify-content: flex-end;
+        }
+
+        .cmd-tag {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent-green);
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .instructions {
+            margin-top: 30px;
+            text-align: right;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .instructions h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructions ol {
+            padding-right: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .footer a {
+            color: var(--accent-green);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="bot-avatar">
+            <i class="fa-solid fa-robot"></i>
+        </div>
+        <h1>Malik Fiaz MD</h1>
+        <div class="owner-tag"><i class="fa-solid fa-crown"></i> اونر: ملک فیاض (+923221027802)</div>
+        <p class="desc">واٹس ایپ کا بہترین اور تیز ترین بوٹ۔ اپنا نمبر درج کریں اور سیکنڈوں میں پیئرنگ کوڈ حاصل کریں۔</p>
+
+        <div class="input-group">
+            <label>اپنا واٹس ایپ نمبر درج کریں (بغیر + کے):</label>
+            <div class="input-box">
+                <input type="tel" id="whatsappNumber" placeholder="923221027802">
+                <span><i class="fa-solid fa-phone"></i></span>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="generateCode()">
+            <i class="fa-solid fa-key"></i> پیئرنگ کوڈ حاصل کریں
+        </button>
+
+        <div class="result-box" id="resultBox">
+            <p style="font-size: 13px; color: var(--text-muted);">آپ کا پیئرنگ کوڈ:</p>
+            <div class="code-display" id="pairingCode">MK-FA-99</div>
+            <button class="btn-copy" onclick="copyCode()">
+                <i class="fa-solid fa-copy" id="copyIcon"></i> <span id="copyText">کوڈ کاپی کریں</span>
+            </button>
+            <p style="font-size: 12px; color: var(--accent-green); margin-top: 10px;">واٹس ایپ -> Linked Devices -> Link with phone number پر درج کریں</p>
+        </div>
+
+        <!-- Commands List Section -->
+        <div class="commands-section">
+            <h2><i class="fa-solid fa-terminal"></i> بوٹ کی تمام کمانڈز</h2>
+
+            <!-- General Commands -->
+            <div class="cmd-category">
+                <h3>⚙️ جنرل کمانڈز (General)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.attp</span>
+                    <span class="cmd-tag">.crop</span>
+                    <span class="cmd-tag">.emojimix</span>
+                    <span class="cmd-tag">.getpp</span>
+                    <span class="cmd-tag">.github</span>
+                    <span class="cmd-tag">.groupinfo</span>
+                    <span class="cmd-tag">.groupstats</span>
+                    <span class="cmd-tag">.helpline</span>
+                    <span class="cmd-tag">.list</span>
+                    <span class="cmd-tag">.menu</span>
+                    <span class="cmd-tag">.myactivity</span>
+                    <span class="cmd-tag">.owner</span>
+                    <span class="cmd-tag">.pair</span>
+                    <span class="cmd-tag">.ping</span>
+                    <span class="cmd-tag">.qr</span>
+                    <span class="cmd-tag">.simage</span>
+                    <span class="cmd-tag">.ssweb</span>
+                    <span class="cmd-tag">.sticker</span>
+                    <span class="cmd-tag">.take</span>
+                    <span class="cmd-tag">.trtext</span>
+                    <span class="cmd-tag">.tts</span>
+                    <span class="cmd-tag">.alive</span>
+                    <span class="cmd-tag">.viewonce</span>
+                    <span class="cmd-tag">.voice</span>
+                </div>
+            </div>
+
+            <!-- AI Commands -->
+            <div class="cmd-category">
+                <h3>🤖 اے آئی کمانڈز (AI Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.ai</span>
+                    <span class="cmd-tag">.gptimage</span>
+                    <span class="cmd-tag">.imagine</span>
+                </div>
+            </div>
+
+            <!-- Admin Commands -->
+            <div class="cmd-category">
+                <h3>🛡️ ایڈمن کمانڈز (Admin Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.antidelete</span>
+                    <span class="cmd-tag">.antifake</span>
+                    <span class="cmd-tag">.antigroupmention</span>
+                    <span class="cmd-tag">.antilink</span>
+                    <span class="cmd-tag">.antitag</span>
+                    <span class="cmd-tag">.antiuserbot</span>
+                    <span class="cmd-tag">.autosticker</span>
+                    <span class="cmd-tag">.chatbot</span>
+                    <span class="cmd-tag">.clean</span>
+                    <span class="cmd-tag">.delete</span>
+                    <span class="cmd-tag">.demote</span>
+                    <span class="cmd-tag">.emojiroast</span>
+                    <span class="cmd-tag">.goodbye</span>
+                    <span class="cmd-tag">.greeting</span>
+                    <span class="cmd-tag">.grouplink</span>
+                    <span class="cmd-tag">.groupstatus</span>
+                    <span class="cmd-tag">.grouptimer</span>
+                    <span class="cmd-tag">.hidetag</span>
+                    <span class="cmd-tag">.kick</span>
+                    <span class="cmd-tag">.kickall</span>
+                    <span class="cmd-tag">.mute</span>
+                    <span class="cmd-tag">.nsfw</span>
+                    <span class="cmd-tag">.ok</span>
+                    <span class="cmd-tag">.promote</span>
+                    <span class="cmd-tag">.readd</span>
+                    <span class="cmd-tag">.resetwarn</span>
+                    <span class="cmd-tag">.setgoodbye</span>
+                    <span class="cmd-tag">.setgroupimage</span>
+                    <span class="cmd-tag">.setgroupname</span>
+                    <span class="cmd-tag">.setwelcome</span>
+                    <span class="cmd-tag">.tagall</span>
+                    <span class="cmd-tag">.unban</span>
+                    <span class="cmd-tag">.unmute</span>
+                    <span class="cmd-tag">.warn</span>
+                    <span class="cmd-tag">.welcome</span>
+                </div>
+            </div>
+
+            <!-- Owner Commands -->
+            <div class="cmd-category">
+                <h3>👑 اونر کمانڈز (Owner Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.ban</span>
+                    <span class="cmd-tag">.save</span>
+                    <span class="cmd-tag">.addsudo</span>
+                    <span class="cmd-tag">.aikey</span>
+                    <span class="cmd-tag">.allgroupstatus</span>
+                    <span class="cmd-tag">.anticall</span>
+                    <span class="cmd-tag">.antideletedm</span>
+                    <span class="cmd-tag">.autoreact</span>
+                    <span class="cmd-tag">.autosave</span>
+                    <span class="cmd-tag">.autostatus</span>
+                    <span class="cmd-tag">.autotyping</span>
+                    <span class="cmd-tag">.block</span>
+                    <span class="cmd-tag">.broadcast</span>
+                    <span class="cmd-tag">.channelreact</span>
+                    <span class="cmd-tag">.checkupdate</span>
+                    <span class="cmd-tag">.delsudo</span>
+                    <span class="cmd-tag">.emojifight</span>
+                    <span class="cmd-tag">.fightcode</span>
+                    <span class="cmd-tag">.fightmood</span>
+                    <span class="cmd-tag">.left</span>
+                    <span class="cmd-tag">.mode</span>
+                    <span class="cmd-tag">.newsletter</span>
+                    <span class="cmd-tag">.reload</span>
+                    <span class="cmd-tag">.replystyle</span>
+                    <span class="cmd-tag">.report</span>
+                    <span class="cmd-tag">.respectguard</span>
+                    <span class="cmd-tag">.restart</span>
+                    <span class="cmd-tag">.setautoreact</span>
+                    <span class="cmd-tag">.setbotname</span>
+                    <span class="cmd-tag">.setbotpp</span>
+                    <span class="cmd-tag">.setgowner</span>
+                    <span class="cmd-tag">.setmenuimage</span>
+                    <span class="cmd-tag">.setnewsletter</span>
+                    <span class="cmd-tag">.setprefix</span>
+                    <span class="cmd-tag">.settgtoken</span>
+                    <span class="cmd-tag">.strictguard</span>
+                    <span class="cmd-tag">.sudolist</span>
+                    <span class="cmd-tag">.unblock</span>
+                    <span class="cmd-tag">.update</span>
+                    <span class="cmd-tag">.wishadd</span>
+                    <span class="cmd-tag">.wishcode</span>
+                    <span class="cmd-tag">.wishmode</span>
+                </div>
+            </div>
+
+            <!-- Media Commands -->
+            <div class="cmd-category">
+                <h3>🎞️ میڈیا کمانڈز (Media Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.facebook</span>
+                    <span class="cmd-tag">.fbcomments</span>
+                    <span class="cmd-tag">.igs</span>
+                    <span class="cmd-tag">.igsc</span>
+                    <span class="cmd-tag">.instagram</span>
+                    <span class="cmd-tag">.lyrics</span>
+                    <span class="cmd-tag">.pinterest</span>
+                    <span class="cmd-tag">.song</span>
+                    <span class="cmd-tag">.statusdl</span>
+                    <span class="cmd-tag">.tgsticker</span>
+                    <span class="cmd-tag">.tiktok</span>
+                    <span class="cmd-tag">.ytvideo</span>
+                </div>
+            </div>
+
+            <!-- Fun Commands -->
+            <div class="cmd-category">
+                <h3>🎭 فن کمانڈز (Fun Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.bite</span>
+                    <span class="cmd-tag">.bomb</span>
+                    <span class="cmd-tag">.check</span>
+                    <span class="cmd-tag">.compliment</span>
+                    <span class="cmd-tag">.dare</span>
+                    <span class="cmd-tag">.flirt</span>
+                    <span class="cmd-tag">.gayrate</span>
+                    <span class="cmd-tag">.goodmorning</span>
+                    <span class="cmd-tag">.goodnight</span>
+                    <span class="cmd-tag">.hug</span>
+                    <span class="cmd-tag">.insult</span>
+                    <span class="cmd-tag">.jail</span>
+                    <span class="cmd-tag">.join</span>
+                    <span class="cmd-tag">.joke</span>
+                    <span class="cmd-tag">.kill</span>
+                    <span class="cmd-tag">.kiss</span>
+                    <span class="cmd-tag">.leave</span>
+                    <span class="cmd-tag">.love</span>
+                    <span class="cmd-tag">.mafia</span>
+                    <span class="cmd-tag">.meme</span>
+                    <span class="cmd-tag">.memesearch</span>
+                    <span class="cmd-tag">.miss</span>
+                    <span class="cmd-tag">.pies</span>
+                    <span class="cmd-tag">.punch</span>
+                    <span class="cmd-tag">.queen</span>
+                    <span class="cmd-tag">.ship</span>
+                    <span class="cmd-tag">.slap</span>
+                    <span class="cmd-tag">.tictactoe</span>
+                    <span class="cmd-tag">.truth</span>
+                    <span class="cmd-tag">.vote</span>
+                </div>
+            </div>
+
+            <!-- Utility Commands -->
+            <div class="cmd-category">
+                <h3>🔧 یوٹیلیٹی کمانڈز (Utility Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.calc</span>
+                    <span class="cmd-tag">.translate</span>
+                    <span class="cmd-tag">.weather</span>
+                </div>
+            </div>
+
+            <!-- Anime Commands -->
+            <div class="cmd-category">
+                <h3>👾 اینیمی کمانڈز (Anime Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.konachan</span>
+                    <span class="cmd-tag">.megumin</span>
+                    <span class="cmd-tag">.neko</span>
+                    <span class="cmd-tag">.random</span>
+                    <span class="cmd-tag">.waifu</span>
+                </div>
+            </div>
+
+            <!-- Textmaker Commands -->
+            <div class="cmd-category">
+                <h3>🖋️ ٹیکسٹ میکر کمانڈز (Textmaker Command)</h3>
+                <div class="cmd-tags">
+                    <span class="cmd-tag">.1917</span>
+                    <span class="cmd-tag">.arena</span>
+                    <span class="cmd-tag">.blackpink</span>
+                    <span class="cmd-tag">.devil</span>
+                    <span class="cmd-tag">.fire</span>
+                    <span class="cmd-tag">.glitch</span>
+                    <span class="cmd-tag">.hacker</span>
+                    <span class="cmd-tag">.ice</span>
+                    <span class="cmd-tag">.impressive</span>
+                    <span class="cmd-tag">.leaves</span>
+                    <span class="cmd-tag">.light</span>
+                    <span class="cmd-tag">.matrix</span>
+                    <span class="cmd-tag">.metallic</span>
+                    <span class="cmd-tag">.neon</span>
+                    <span class="cmd-tag">.purple</span>
+                    <span class="cmd-tag">.sand</span>
+                    <span class="cmd-tag">.snow</span>
+                    <span class="cmd-tag">.thunder</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3><i class="fa-solid fa-circle-info" style="color: var(--accent-green);"></i> استعمال کرنے کا طریقہ:</h3>
+            <ol>
+                <li>اپنا واٹس ایپ نمبر ملک کے کوڈ کے ساتھ لکھیں۔</li>
+                <li>پیئرنگ کوڈ حاصل کرنے کے بٹن پر کلک کریں۔</li>
+                <li>کوڈ کے نیچے دیے گئے "کوڈ کاپی کریں" بٹن پر کلک کریں۔</li>
+                <li>واٹس ایپ کی سیٹنگز میں **Linked Devices** پر جا کر کوڈ درج کر دیں۔</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="footer">
+        Powered by <a href="#" target="_blank">Malik Fiaz MD Bot</a> &bull; کانٹیک্ট: +923221027802
+    </div>
+
+    <script>
+        function generateCode() {
+            const num = document.getElementById('whatsappNumber').value;
+            if(!num || num.length < 10) {
+                alert("براہ کرم اپنا درست واٹس ایپ نمبر درج کریں!");
+                return;
+            }
+            
+            const randomCode = "MK-" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('pairingCode').innerText = randomCode;
+            document.getElementById('resultBox').style.display = "block";
+        }
+
+        function copyCode() {
+            const codeText = document.getElementById('pairingCode').innerText;
+            navigator.clipboard.writeText(codeText).then(() => {
+                const copyText = document.getElementById('copyText');
+                const copyIcon = document.getElementById('copyIcon');
+                
+                copyText.innerText = "کاپی ہو گیا!";
+                copyIcon.className = "fa-solid fa-check";
+                
+                setTimeout(() => {
+                    copyText.innerText = "کوڈ کاپی کریں";
+                    copyIcon.className = "fa-solid fa-copy";
+                }, 2000);
+            }).catch(err => {
+                alert("کاپی کرنے میں مسئلہ آیا!");
+            });
+        }
+    </script>
+</body>
+</html>
