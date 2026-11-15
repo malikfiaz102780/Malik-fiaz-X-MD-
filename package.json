@@ -1,0 +1,14 @@
+{
+  "name": "malik-fiaz-md",
+  "version": "1.0.0",
+  "description": "MALIK FIAZ MD WhatsApp Bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.18",
+    "pino": "^9.6.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
