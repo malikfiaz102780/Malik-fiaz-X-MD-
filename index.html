@@ -1,144 +1,69 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#090909">
-  <title>MALIK FIAZ DARK HACKER</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root {
-      --bg:#080808; --panel:#121212; --panel2:#191919;
-      --red:#ff2525; --red-soft:rgba(255,37,37,.13);
-      --text:#f5f5f5; --muted:#a6a6a6; --border:#343434;
-      --glow:0 0 22px rgba(255,37,37,.18);
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif}
-    body{min-height:100vh;background:radial-gradient(circle at top,#241010 0,#080808 42%);color:var(--text);padding:18px;display:flex;flex-direction:column;align-items:center}
-    .container{width:100%;max-width:720px;background:rgba(18,18,18,.97);border:1px solid var(--border);border-radius:22px;padding:26px 18px;margin:16px auto;box-shadow:var(--glow)}
-    .avatar{width:86px;height:86px;border-radius:50%;margin:0 auto 15px;display:grid;place-items:center;background:linear-gradient(145deg,#ff4444,#650000);color:white;font-size:38px;box-shadow:0 0 26px rgba(255,30,30,.3);border:2px solid #ff7777}
-    h1{text-align:center;font-size:clamp(24px,6vw,34px);font-weight:900;letter-spacing:.5px}
-    .owner{text-align:center;color:#ff6565;background:var(--red-soft);border:1px solid rgba(255,37,37,.3);border-radius:30px;padding:7px 13px;width:max-content;max-width:100%;margin:10px auto 18px;font-size:14px}
-    .desc{text-align:center;color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:22px}
-    .demo-notice{background:#211515;border:1px solid #733030;color:#ffb3b3;border-radius:12px;padding:12px;font-size:13px;line-height:1.7;text-align:center;margin:16px 0}
-    .field{text-align:right;margin:16px 0}
-    label{display:block;color:var(--muted);font-size:14px;margin-bottom:8px}
-    input{width:100%;padding:14px;background:#090909;border:1px solid var(--border);border-radius:11px;color:white;font-size:17px;direction:ltr;text-align:left;outline:none}
-    input:focus{border-color:var(--red);box-shadow:0 0 10px rgba(255,37,37,.18)}
-    button{border:0;cursor:pointer;font-weight:800;border-radius:11px;transition:.2s}
-    .primary{width:100%;padding:14px;background:linear-gradient(90deg,#b90000,#ff3030);color:white;font-size:16px;box-shadow:var(--glow)}
-    button:hover{filter:brightness(1.12);transform:translateY(-1px)}
-    .result{display:none;margin-top:18px;padding:16px;border:1px dashed var(--red);background:#0b0b0b;border-radius:13px;text-align:center}
-    .result small{color:var(--muted)}
-    .code{font:900 25px monospace;letter-spacing:4px;color:#ff4545;direction:ltr;margin:12px}
-    .copy{background:var(--red-soft);border:1px solid var(--red);color:#ff7777;padding:9px 15px}
-    .section{margin-top:30px;text-align:right}
-    .section h2{font-size:19px;color:#ff5555;border-bottom:1px solid var(--border);padding-bottom:10px;margin-bottom:14px}
-    .category{background:#151515;border:1px solid var(--border);border-radius:13px;padding:13px;margin:12px 0}
-    .category h3{font-size:15px;margin-bottom:11px;color:#f3f3f3}
-    .tags{display:flex;flex-wrap:wrap;gap:7px;direction:ltr;justify-content:flex-start}
-    .tag{font:12px monospace;color:#ff7777;background:var(--red-soft);border:1px solid rgba(255,60,60,.28);padding:5px 8px;border-radius:7px}
-    .instructions{margin-top:26px;padding:15px;background:#151515;border:1px solid var(--border);border-radius:13px;text-align:right}
-    .instructions h3{color:#ff6868;margin-bottom:9px}
-    .instructions ol{padding-right:22px;color:var(--muted);font-size:13px;line-height:2}
-    footer{text-align:center;color:var(--muted);font-size:13px;padding:12px 5px 22px}
-    footer strong{color:#ff5555}
-    @media(max-width:420px){body{padding:10px}.container{padding:22px 14px}.owner{font-size:12px}}
-  </style>
-</head>
-<body>
-  <main class="container">
-    <div class="avatar"><i class="fa-solid fa-user-secret"></i></div>
-    <h1>MALIK FIAZ DARK HACKER</h1>
-    <div class="owner"><i class="fa-solid fa-crown"></i> OWNER: MALIK FIAZ</div>
-    <p class="desc">MALIK FIAZ MD — WhatsApp Bot Dashboard</p>
-
-    <div class="demo-notice">
-      <strong>DEMO PREVIEW ONLY</strong><br>
-      یہ صفحہ صرف ڈیزائن اور ڈیمو کوڈ دکھاتا ہے۔ یہاں بنایا گیا کوڈ WhatsApp کا حقیقی Pairing Code نہیں ہے۔
-    </div>
-
-    <div class="field">
-      <label for="whatsappNumber">ڈیمو نمبر (صرف دکھانے کے لیے)</label>
-      <input id="whatsappNumber" type="tel" inputmode="numeric" placeholder="03001234567" maxlength="11">
-    </div>
-    <button class="primary" type="button" onclick="generateDemoCode()">
-      <i class="fa-solid fa-wand-magic-sparkles"></i> ڈیمو کوڈ دکھائیں
-    </button>
-
-    <div class="result" id="resultBox" aria-live="polite">
-      <small>Demo code — WhatsApp میں استعمال نہیں ہو سکتا</small>
-      <div class="code" id="pairingCode">DEMO1234</div>
-      <button class="copy" type="button" onclick="copyDemoCode()"><i class="fa-regular fa-copy"></i> ڈیمو کوڈ کاپی کریں</button>
-    </div>
-
-    <section class="section">
-      <h2><i class="fa-solid fa-terminal"></i> بوٹ کمانڈز</h2>
-
-      <div class="category"><h3>⚙️ جنرل کمانڈز</h3><div class="tags">
-        <span class="tag">.attp</span><span class="tag">.crop</span><span class="tag">.emojimix</span><span class="tag">.getpp</span><span class="tag">.github</span><span class="tag">.groupinfo</span><span class="tag">.groupstats</span><span class="tag">.helpline</span><span class="tag">.list</span><span class="tag">.menu</span><span class="tag">.myactivity</span><span class="tag">.owner</span><span class="tag">.pair</span><span class="tag">.ping</span><span class="tag">.qr</span><span class="tag">.simage</span><span class="tag">.ssweb</span><span class="tag">.sticker</span><span class="tag">.take</span><span class="tag">.trtext</span><span class="tag">.tts</span><span class="tag">.alive</span><span class="tag">.viewonce</span><span class="tag">.voice</span>
-      </div></div>
-
-      <div class="category"><h3>🤖 اے آئی کمانڈز</h3><div class="tags"><span class="tag">.ai</span><span class="tag">.gptimage</span><span class="tag">.imagine</span></div></div>
-
-      <div class="category"><h3>🛡️ ایڈمن کمانڈز</h3><div class="tags">
-        <span class="tag">.antidelete</span><span class="tag">.antifake</span><span class="tag">.antigroupmention</span><span class="tag">.antilink</span><span class="tag">.antitag</span><span class="tag">.antiuserbot</span><span class="tag">.autosticker</span><span class="tag">.chatbot</span><span class="tag">.clean</span><span class="tag">.delete</span><span class="tag">.demote</span><span class="tag">.goodbye</span><span class="tag">.greeting</span><span class="tag">.grouplink</span><span class="tag">.groupstatus</span><span class="tag">.grouptimer</span><span class="tag">.hidetag</span><span class="tag">.kick</span><span class="tag">.mute</span><span class="tag">.promote</span><span class="tag">.readd</span><span class="tag">.resetwarn</span><span class="tag">.setgoodbye</span><span class="tag">.setgroupimage</span><span class="tag">.setgroupname</span><span class="tag">.setwelcome</span><span class="tag">.tagall</span><span class="tag">.unmute</span><span class="tag">.warn</span><span class="tag">.welcome</span>
-      </div></div>
-
-      <div class="category"><h3>👑 اونر کمانڈز</h3><div class="tags">
-        <span class="tag">.addsudo</span><span class="tag">.aikey</span><span class="tag">.allgroupstatus</span><span class="tag">.anticall</span><span class="tag">.autoreact</span><span class="tag">.autosave</span><span class="tag">.autostatus</span><span class="tag">.autotyping</span><span class="tag">.block</span><span class="tag">.checkupdate</span><span class="tag">.delsudo</span><span class="tag">.mode</span><span class="tag">.newsletter</span><span class="tag">.reload</span><span class="tag">.replystyle</span><span class="tag">.restart</span><span class="tag">.setautoreact</span><span class="tag">.setbotname</span><span class="tag">.setbotpp</span><span class="tag">.setprefix</span><span class="tag">.sudolist</span><span class="tag">.unblock</span><span class="tag">.update</span>
-      </div></div>
-
-      <div class="category"><h3>🎞️ میڈیا کمانڈز</h3><div class="tags"><span class="tag">.facebook</span><span class="tag">.fbcomments</span><span class="tag">.igs</span><span class="tag">.igsc</span><span class="tag">.instagram</span><span class="tag">.lyrics</span><span class="tag">.pinterest</span><span class="tag">.song</span><span class="tag">.statusdl</span><span class="tag">.tgsticker</span><span class="tag">.tiktok</span><span class="tag">.ytvideo</span></div></div>
-
-      <div class="category"><h3>🎭 فن کمانڈز</h3><div class="tags"><span class="tag">.bite</span><span class="tag">.check</span><span class="tag">.compliment</span><span class="tag">.dare</span><span class="tag">.goodmorning</span><span class="tag">.goodnight</span><span class="tag">.joke</span><span class="tag">.meme</span><span class="tag">.memesearch</span><span class="tag">.miss</span><span class="tag">.punch</span><span class="tag">.ship</span><span class="tag">.tictactoe</span><span class="tag">.truth</span><span class="tag">.vote</span></div></div>
-
-      <div class="category"><h3>🔧 یوٹیلیٹی کمانڈز</h3><div class="tags"><span class="tag">.calc</span><span class="tag">.translate</span><span class="tag">.weather</span></div></div>
-
-      <div class="category"><h3>👾 اینیمی کمانڈز</h3><div class="tags"><span class="tag">.konachan</span><span class="tag">.megumin</span><span class="tag">.neko</span><span class="tag">.random</span><span class="tag">.waifu</span></div></div>
-
-      <div class="category"><h3>🖋️ ٹیکسٹ میکر کمانڈز</h3><div class="tags"><span class="tag">.1917</span><span class="tag">.arena</span><span class="tag">.blackpink</span><span class="tag">.devil</span><span class="tag">.fire</span><span class="tag">.glitch</span><span class="tag">.hacker</span><span class="tag">.ice</span><span class="tag">.impressive</span><span class="tag">.leaves</span><span class="tag">.light</span><span class="tag">.matrix</span><span class="tag">.metallic</span><span class="tag">.neon</span><span class="tag">.purple</span><span class="tag">.sand</span><span class="tag">.snow</span><span class="tag">.thunder</span></div></div>
-    </section>
-
-    <section class="instructions">
-      <h3><i class="fa-solid fa-circle-info"></i> استعمال کا طریقہ</h3>
-      <ol>
-        <li>یہ ویب پیج بوٹ کا ڈیزائن اور کمانڈ لسٹ دکھاتا ہے۔</li>
-        <li>اوپر دیا گیا نمبر صرف ڈیمو کے لیے ہے۔</li>
-        <li>ڈیمو کوڈ حقیقی WhatsApp Pairing Code نہیں ہے۔</li>
-        <li>حقیقی کنکشن کے لیے محفوظ بوٹ سرور اور اصل Pairing API درکار ہے۔</li>
-      </ol>
-    </section>
-  </main>
-
-  <footer>Powered by <strong>MALIK FIAZ DARK HACKER</strong> · Demo: 03001234567</footer>
-
-  <script>
-    function generateDemoCode() {
-      const number = document.getElementById('whatsappNumber').value.trim();
-      if (number && !/^[0-9]{10,11}$/.test(number)) {
-        alert('براہ کرم ڈیمو نمبر 10 یا 11 ہندسوں میں لکھیں۔');
-        return;
-      }
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let code = '';
-      for (let i = 0; i < 8; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
-      }
-      document.getElementById('pairingCode').textContent = code;
-      document.getElementById('resultBox').style.display = 'block';
-    }
-
-    async function copyDemoCode() {
-      const code = document.getElementById('pairingCode').textContent;
-      try {
-        await navigator.clipboard.writeText(code);
-        alert('ڈیمو کوڈ کاپی ہو گیا۔ یہ حقیقی WhatsApp کوڈ نہیں ہے۔');
-      } catch {
-        alert('کاپی نہیں ہو سکا۔ کوڈ کو منتخب کرکے کاپی کریں۔');
-      }
-    }
-  </script>
-</body>
-</html>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>MALIK FIAZ MD — WhatsApp Bot Platform</title>
+<style>
+:root{--bg:#08090d;--panel:#11131a;--panel2:#171a23;--line:#292d39;--red:#ed3038;--red2:#ff555c;--txt:#f4f5f7;--muted:#9ca3b2;--green:#31d18a;--amber:#ffc45b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#291014 0,#08090d 55%);color:var(--txt);font:15px Arial,sans-serif}
+a{color:var(--red2)}button,input,select{font:inherit}.wrap{max-width:1100px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:linear-gradient(130deg,#211116,#11131a 70%);border:1px solid #51262d;border-radius:18px;padding:22px}
+.brand{display:flex;align-items:center;gap:13px}.logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(145deg,#ff5158,#850e19);display:grid;place-items:center;font-weight:900;font-size:18px}.brand h1{margin:0;font-size:clamp(21px,4vw,30px)}.muted{color:var(--muted)}.pill{border:1px solid #4c3338;border-radius:99px;padding:7px 11px;color:#ff9ca1;font-size:12px}
+nav{display:flex;gap:8px;overflow:auto;margin:16px 0}nav button,.btn{border:1px solid var(--line);background:#171a23;color:var(--txt);border-radius:10px;padding:11px 14px;cursor:pointer;white-space:nowrap}nav button.active,.btn.primary{background:var(--red);border-color:var(--red);color:white}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.stat strong{display:block;font-size:23px;margin:6px 0}.stat small,.hint{color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:14px}.card h2{font-size:17px;margin:0 0 15px}.field{margin:13px 0}.field label{display:block;color:#c8cbd4;margin-bottom:7px;font-size:13px}input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#090b10;color:white;outline:none}input:focus,select:focus{border-color:var(--red)}.btn{margin:5px 5px 5px 0}.btn:disabled{opacity:.5;cursor:not-allowed}.status{padding:12px;border-radius:10px;background:#0c1714;color:var(--green);font-size:13px}.warn{padding:12px;border-radius:10px;background:#211b10;color:var(--amber);font-size:12px;line-height:1.6}.list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.item{background:var(--panel2);border:1px solid var(--line);padding:11px;border-radius:9px;font-size:13px}.item b{display:block;margin-bottom:4px}.hidden{display:none}.tabpage{display:none}.tabpage.active{display:block}.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}.command{font-family:monospace;color:#ff9ca1}.server{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{font-size:11px;color:var(--green)}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.wrap{padding:11px}}@media(max-width:420px){.list{grid-template-columns:1fr}.top{padding:16px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><div class="logo">MF</div><div><h1>MALIK FIAZ MD</h1><div class="muted">WhatsApp Multi-Device Bot Platform</div></div></div><span class="pill">PUBLIC PANEL • ENGLISH</span></header>
+<nav>
+<button class="active" data-tab="dashboard">Dashboard</button><button data-tab="pairing">Pairing</button><button data-tab="servers">Servers</button><button data-tab="features">Features</button><button data-tab="settings">Settings</button><button data-tab="guide">Guide</button>
+</nav>
+<section id="dashboard" class="tabpage active">
+<div class="grid">
+<div class="stat">Platform Status<strong id="platformStatus">Not Connected</strong><small>Backend connection required</small></div>
+<div class="stat">Configured Servers<strong>1</strong><small>Starter configuration</small></div>
+<div class="stat">Per-server Capacity<strong>50</strong><small>Target limit; enforce on backend</small></div>
+<div class="stat">Bot Mode<strong>Public</strong><small>Multi-user architecture</small></div>
+</div>
+<div class="layout"><div class="card"><h2>Platform Overview</h2><p class="muted">Manage WhatsApp device pairing, bot sessions, command modules and AI integrations from one dashboard.</p><div class="status">● Frontend loaded — live server status is unavailable until the backend is deployed.</div></div>
+<div class="card"><h2>Quick Actions</h2><button class="btn primary" onclick="showTab('pairing')">Connect WhatsApp</button><button class="btn" onclick="showTab('features')">Browse Features</button></div></div>
+</section>
+<section id="pairing" class="tabpage"><div class="layout"><div class="card"><h2>Connect WhatsApp Device</h2>
+<div class="field"><label for="server">Select Server</label><select id="server"><option value="server-01">Server 01 — Starter</option></select></div>
+<div class="field"><label for="phone">WhatsApp Number (International Format)</label><input id="phone" inputmode="numeric" placeholder="923001234567" autocomplete="tel"><div class="hint">Enter country code and digits only. Do not include +, spaces or dashes.</div></div>
+<button class="btn primary" id="pairBtn" onclick="requestPairing()">Generate Pairing Code</button>
+<div id="pairResult" class="status hidden" aria-live="polite"></div>
+<div class="warn" style="margin-top:13px">Pairing requires a deployed backend using the official WhatsApp-compatible connection library. This HTML intentionally does not fabricate pairing codes or collect WhatsApp credentials.</div>
+</div><div class="card"><h2>Pairing Instructions</h2><ol class="muted" style="line-height:2;padding-left:20px"><li>Enter your WhatsApp number with country code.</li><li>Select an available server.</li><li>Request a pairing code from the connected backend.</li><li>Open WhatsApp → Linked Devices → Link a Device.</li><li>Choose linking with phone number and enter the code.</li></ol><div class="hint">Never share your pairing code or session files.</div></div></div></section>
+<section id="servers" class="tabpage"><div class="card"><h2>Server Management</h2><div class="item server"><div><b>Server 01 — Starter</b><span class="muted">Configured placeholder • Live health check pending</span></div><span class="tag">NOT VERIFIED</span></div><p class="hint">The panel can display server pools, load and capacity after a real backend and database are connected. No imaginary server count or availability is shown.</p></div></section>
+<section id="features" class="tabpage"><div class="card"><h2>Bot Feature Modules</h2><div class="list">
+<div class="item"><b>Connection</b>Pairing Code, QR Login, Multi-Device Session, Reconnect</div>
+<div class="item"><b>AI Assistant</b>AI Chat, Text Generation, Image API integration</div>
+<div class="item"><b>Group Management</b>Welcome, Goodbye, Promote, Demote, Mute, Unmute, Admin Tools</div>
+<div class="item"><b>Protection</b>Anti-Link, Anti-Spam Controls, Warning System, Admin Approval</div>
+<div class="item"><b>Media Tools</b>Sticker, Image Tools, Audio Tools, Video Link Handlers</div>
+<div class="item"><b>Utilities</b>Weather API, Calculator, Translation, Text-to-Speech</div>
+<div class="item"><b>Owner Tools</b>Prefix, Bot Name, Public/Private Mode, Status, Restart</div>
+<div class="item"><b>Monitoring</b>Session Health, Uptime, Error Logs, Server Capacity</div>
+</div><p class="hint">These are planned module categories. A feature becomes operational only after its backend command and any required API are implemented.</p></div></section>
+<section id="settings" class="tabpage"><div class="layout"><div class="card"><h2>Bot Settings</h2>
+<div class="field"><label for="botName">Bot Name</label><input id="botName" value="MALIK FIAZ MD"></div>
+<div class="field"><label for="prefix">Command Prefix</label><select id="prefix"><option>.</option><option>!</option><option>/</option></select></div>
+<div class="field"><label for="mode">Bot Mode</label><select id="mode"><option>Public</option><option>Private</option></select></div>
+<button class="btn primary" onclick="saveSettings()">Save Local Preferences</button><span id="saveStatus" class="hint"></span></div>
+<div class="card"><h2>AI Integration</h2><div class="field"><label for="aiStatus">AI Provider Status</label><input id="aiStatus" value="Not configured" disabled></div><p class="hint">Add your AI provider key securely on the backend host as an environment secret. Never place API keys in this HTML or public GitHub repository.</p></div></div></section>
+<section id="guide" class="tabpage"><div class="card"><h2>Deployment Guide</h2><ol class="muted" style="line-height:2;padding-left:20px"><li>Deploy the Node.js bot backend as a persistent service.</li><li>Attach persistent storage for WhatsApp session credentials.</li><li>Set environment variables for the backend URL and AI provider key.</li><li>Connect this frontend to authenticated backend endpoints.</li><li>Use server-side limits and monitoring for up to 50 sessions per server, subject to host capacity and WhatsApp rules.</li></ol><div class="warn">This file is the frontend only. It cannot independently connect WhatsApp, create real pairing codes, host bot sessions, or guarantee 24/7 uptime.</div></div></section>
+<footer class="footer">MALIK FIAZ MD • WhatsApp Bot Platform</footer>
+</div>
+<script>
+function showTab(id){document.querySelectorAll('.tabpage').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id))}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
+async function requestPairing(){
+ const phone=document.getElementById('phone').value.replace(/\D/g,'');
+ const out=document.getElementById('pairResult'); const btn=document.getElementById('pairBtn');
+ if(!/^[1-9][0-9]{7,14}$/.test(phone)){out.classList.remove('hidden');out.textContent='Enter a valid international phone number (8–15 digits).';return;}
+ out.classList.remove('hidden');out.textContent='Backend is not connected yet. Deploy the bot API and configure its URL before requesting a real pairing code.';
+ // Deliberately no fake code and no browser-side credential handling.
+}
+function saveSettings(){const s={botName:document.getElementById('botName').value,prefix:document.getElementById('prefix').value,mode:document.getElementById('mode').value};try{localStorage.setItem('malikFiazPanelPrefs',JSON.stringify(s));document.getElementById('saveStatus').textContent='Saved in this browser only.';}catch(e){document.getElementById('saveStatus').textContent='Could not save preferences.';}}
+</script></body></html>
