@@ -169,7 +169,7 @@
         }
 
         .code-display {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 900;
             color: var(--accent-green);
             letter-spacing: 2px;
@@ -198,7 +198,6 @@
             color: #0b0f19;
         }
 
-        /* Commands Section Styles */
         .commands-section {
             margin-top: 35px;
             text-align: right;
@@ -294,7 +293,7 @@
         </div>
         <h1>Malik Fiaz MD</h1>
         <div class="owner-tag"><i class="fa-solid fa-crown"></i> اونر: ملک فیاض (+923221027802)</div>
-        <p class="desc">واٹس ایپ کا بہترین اور تیز ترین بوٹ۔ اپنا نمبر درج کریں اور سیکنڈوں میں پیئرنگ کوڈ حاصل کریں۔</p>
+        <p class="desc">واٹس ایپ کا بہترین اور تیز ترین بوٹ۔ اپنا نمبر درج کریں اور سیکنڈوں میں 8 ہندسوں کا پیئرنگ کوڈ حاصل کریں۔</p>
 
         <div class="input-group">
             <label>اپنا واٹس ایپ نمبر درج کریں (بغیر + کے):</label>
@@ -309,8 +308,8 @@
         </button>
 
         <div class="result-box" id="resultBox">
-            <p style="font-size: 13px; color: var(--text-muted);">آپ کا پیئرنگ کوڈ:</p>
-            <div class="code-display" id="pairingCode">MK-FA-99</div>
+            <p style="font-size: 13px; color: var(--text-muted);">آپ کا 8 ہندسوں کا پیئرنگ کوڈ:</p>
+            <div class="code-display" id="pairingCode">ABC123XY</div>
             <button class="btn-copy" onclick="copyCode()">
                 <i class="fa-solid fa-copy" id="copyIcon"></i> <span id="copyText">کوڈ کاپی کریں</span>
             </button>
@@ -563,7 +562,7 @@
                 <li>اپنا واٹس ایپ نمبر ملک کے کوڈ کے ساتھ لکھیں۔</li>
                 <li>پیئرنگ کوڈ حاصل کرنے کے بٹن پر کلک کریں۔</li>
                 <li>کوڈ کے نیچے دیے گئے "کوڈ کاپی کریں" بٹن پر کلک کریں۔</li>
-                <li>واٹس ایپ کی سیٹنگز میں **Linked Devices** پر جا کر کوڈ درج کر دیں۔</li>
+                <li>واٹس ایپ کی سیٹنگز میں **Linked Devices** پر جا کر 8 ہندسوں کا کوڈ درج کر دیں۔</li>
             </ol>
         </div>
     </div>
@@ -580,7 +579,13 @@
                 return;
             }
             
-            const randomCode = "MK-" + Math.floor(1000 + Math.random() * 9000);
+            // 8 ہندسوں/حروف کا رینڈم پیئرنگ کوڈ جنریটে کرنے کے لیے
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let randomCode = '';
+            for (let i = 0; i < 8; i++) {
+                randomCode += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+
             document.getElementById('pairingCode').innerText = randomCode;
             document.getElementById('resultBox').style.display = "block";
         }
