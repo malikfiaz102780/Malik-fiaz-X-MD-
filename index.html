@@ -6,12 +6,13 @@
     <title>Malik Fiaz MD - Multi-Device Bot Platform</title>
     <style>
         :root {
-            --bg-color: #0d0f12;
-            --card-bg: #161a22;
-            --accent-red: #ff334b;
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-red: #ef4444;
+            --accent-red-hover: #dc2626;
             --text-main: #ffffff;
-            --text-muted: #8b949e;
-            --border-color: #30363d;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
         }
         * {
             box-sizing: border-box;
@@ -30,22 +31,46 @@
         }
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 480px;
         }
         .header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .badge {
-            background: rgba(255, 51, 75, 0.15);
+            background: rgba(239, 68, 68, 0.15);
             color: var(--accent-red);
             padding: 6px 14px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+        .nav-tabs {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-tab.active {
+            background-color: var(--accent-red);
+            color: white;
         }
         .card {
             background-color: var(--card-bg);
@@ -53,10 +78,15 @@
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
         h2 {
-            font-size: 20px;
+            font-size: 22px;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+        h3 {
+            font-size: 18px;
             margin-bottom: 6px;
         }
         p.subtitle {
@@ -72,13 +102,14 @@
             font-size: 13px;
             color: var(--text-muted);
             margin-bottom: 8px;
+            font-weight: 500;
         }
         select, input {
             width: 100%;
-            background: #0d0f12;
+            background: #0d1117;
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 12px 16px;
+            padding: 13px 16px;
             border-radius: 10px;
             font-size: 14px;
             outline: none;
@@ -97,22 +128,48 @@
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: background-color 0.2s;
         }
         .btn-pairing:hover {
-            opacity: 0.9;
+            background-color: var(--accent-red-hover);
         }
         #result-box {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 8px;
-            background: rgba(0, 255, 100, 0.1);
-            border: 1px solid #00ff64;
-            color: #00ff64;
+            margin-top: 18px;
+            padding: 14px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #34d399;
             text-align: center;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 15px;
             display: none;
+        }
+        .code-display {
+            font-family: monospace;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin: 8px 0;
+            background: #0d1117;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px dashed #10b981;
+        }
+        .btn-copy {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: opacity 0.2s;
+        }
+        .btn-copy:hover {
+            opacity: 0.85;
         }
         .instructions {
             font-size: 13px;
@@ -123,7 +180,7 @@
             padding-left: 18px;
         }
         .instructions li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -135,36 +192,48 @@
             <h2>Malik Fiaz MD</h2>
         </div>
 
+        <div class="nav-tabs">
+            <div class="nav-tab">Dashboard</div>
+            <div class="nav-tab active">Pairing</div>
+            <div class="nav-tab">Servers</div>
+            <div class="nav-tab">Features</div>
+        </div>
+
         <div class="card">
             <h3>Connect WhatsApp Device</h3>
-            <p class="subtitle">Select active server and generate your pairing code.</p>
+            <p class="subtitle">Select your preferred server capacity and generate pairing code.</p>
 
             <div class="form-group">
                 <label>Select Server (Capacity: 50 Bots/Server)</label>
                 <select id="serverSelect">
-                    <option value="server1">Server 01 - Starter (Active)</option>
-                    <option value="server2">Server 02 - Pro (Load: 12/50)</option>
-                    <option value="server3">Server 03 - Ultra (Load: 5/50)</option>
+                    <option value="server1">Server 01 - Starter (Load: 18/50)</option>
+                    <option value="server2">Server 02 - Pro (Load: 24/50)</option>
+                    <option value="server3">Server 03 - Ultra (Load: 31/50)</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label>WhatsApp Number (International Format)</label>
                 <input type="text" id="whatsappNumber" placeholder="923XXXXXXXXX" value="">
-                <small style="color: var(--text-muted); font-size: 11px; margin-top: 4px; display: block;">Enter country code and digits without +, spaces or dashes.</small>
+                <small style="color: var(--text-muted); font-size: 11px; margin-top: 4px; display: block;">Enter country code without +, spaces or dashes.</small>
             </div>
 
             <button class="btn-pairing" onclick="generateCode()">Generate Pairing Code</button>
-            <div id="result-box"></div>
+            
+            <div id="result-box">
+                <div id="status-text">⏳ Connecting to Railway backend...</div>
+                <div class="code-display" id="codeText" style="display:none;"></div>
+                <button class="btn-copy" id="copyBtn" style="display:none;" onclick="copyCode()">📋 Copy Code</button>
+            </div>
         </div>
 
         <div class="card instructions">
             <h3>Pairing Instructions</h3>
             <ol>
-                <li>Open WhatsApp on your phone.</li>
+                <li>Open WhatsApp on your mobile phone.</li>
                 <li>Tap Menu or Settings and select <b>Linked Devices</b>.</li>
-                <li>Tap <b>Link a Device</b> then choose <b>Link with phone number instead</b>.</li>
-                <li>Enter the 8-digit pairing code generated above.</li>
+                <li>Tap <b>Link a Device</b> and select <b>Link with phone number instead</b>.</li>
+                <li>Enter the 8-digit pairing code provided above.</li>
             </ol>
         </div>
     </div>
@@ -173,25 +242,38 @@
         function generateCode() {
             const num = document.getElementById('whatsappNumber').value.trim();
             const resultBox = document.getElementById('result-box');
+            const statusText = document.getElementById('status-text');
+            const codeText = document.getElementById('codeText');
+            const copyBtn = document.getElementById('copyBtn');
             
             if (!num || num.length < 10) {
-                alert("براہ کرم اپنا صحیح واٹس ایپ نمبر درج کریں (مثلاً 923XXXXXXXXX)");
+                alert("براہ کرم اپنا درست واٹس ایپ نمبر درج کریں (مثلاً 923XXXXXXXXX)");
                 return;
             }
 
             resultBox.style.display = "block";
-            resultBox.style.background = "rgba(255, 165, 0, 0.1)";
-            resultBox.style.borderColor = "orange";
-            resultBox.style.color = "orange";
-            resultBox.innerHTML = "⏳ Railway سرور سے رابطہ کیا جا रहा ہے...";
+            statusText.style.color = "#fbbf24";
+            statusText.innerHTML = "⏳ Generating code from Railway server...";
+            codeText.style.display = "none";
+            copyBtn.style.display = "none";
 
-            // یہاں آپ اپنے Railway سرور کا پبلک لنک ڈال سکتے ہیں جب چاہیں
+            // جب آپ کا Railway بیک اینڈ لنک ایکٹیو ہو جائے گا، تو یہاں اس کی اصل API کال لگ جائے گی۔
+            // فی الحال یہ simulate کر رہا ہے تاکہ آپ کا بٹن اور کاپی فیچر بالکل پرفیکٹ کام کرے:
             setTimeout(() => {
-                resultBox.style.background = "rgba(0, 255, 100, 0.1)";
-                resultBox.style.borderColor = "#00ff64";
-                resultBox.style.color = "#00ff64";
-                resultBox.innerHTML = "🔑 Pairing Code: <b>MALIK-92FB</b><br><small>اس کوڈ کو اپنے واٹس ایپ میں درج کریں!</small>";
+                const randomCode = "MALIK-" + Math.floor(1000 + Math.random() * 9000);
+                statusText.style.color = "#34d399";
+                statusText.innerHTML = "✅ Pairing Code Generated Successfully!";
+                codeText.innerText = randomCode;
+                codeText.style.display = "block";
+                copyBtn.style.display = "inline-block";
             }, 2000);
+        }
+
+        function copyCode() {
+            const codeValue = document.getElementById('codeText').innerText;
+            navigator.clipboard.writeText(codeValue).then(() => {
+                alert("✅ Pairing code copied to clipboard!");
+            });
         }
     </script>
 </body>
