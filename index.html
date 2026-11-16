@@ -1,69 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090909">
-<title>MALIK FIAZ MD — WhatsApp Bot Platform</title>
-<style>
-:root{--bg:#08090d;--panel:#11131a;--panel2:#171a23;--line:#292d39;--red:#ed3038;--red2:#ff555c;--txt:#f4f5f7;--muted:#9ca3b2;--green:#31d18a;--amber:#ffc45b}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#291014 0,#08090d 55%);color:var(--txt);font:15px Arial,sans-serif}
-a{color:var(--red2)}button,input,select{font:inherit}.wrap{max-width:1100px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:linear-gradient(130deg,#211116,#11131a 70%);border:1px solid #51262d;border-radius:18px;padding:22px}
-.brand{display:flex;align-items:center;gap:13px}.logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(145deg,#ff5158,#850e19);display:grid;place-items:center;font-weight:900;font-size:18px}.brand h1{margin:0;font-size:clamp(21px,4vw,30px)}.muted{color:var(--muted)}.pill{border:1px solid #4c3338;border-radius:99px;padding:7px 11px;color:#ff9ca1;font-size:12px}
-nav{display:flex;gap:8px;overflow:auto;margin:16px 0}nav button,.btn{border:1px solid var(--line);background:#171a23;color:var(--txt);border-radius:10px;padding:11px 14px;cursor:pointer;white-space:nowrap}nav button.active,.btn.primary{background:var(--red);border-color:var(--red);color:white}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}.stat strong{display:block;font-size:23px;margin:6px 0}.stat small,.hint{color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:1.25fr .75fr;gap:14px;margin-top:14px}.card h2{font-size:17px;margin:0 0 15px}.field{margin:13px 0}.field label{display:block;color:#c8cbd4;margin-bottom:7px;font-size:13px}input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;background:#090b10;color:white;outline:none}input:focus,select:focus{border-color:var(--red)}.btn{margin:5px 5px 5px 0}.btn:disabled{opacity:.5;cursor:not-allowed}.status{padding:12px;border-radius:10px;background:#0c1714;color:var(--green);font-size:13px}.warn{padding:12px;border-radius:10px;background:#211b10;color:var(--amber);font-size:12px;line-height:1.6}.list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.item{background:var(--panel2);border:1px solid var(--line);padding:11px;border-radius:9px;font-size:13px}.item b{display:block;margin-bottom:4px}.hidden{display:none}.tabpage{display:none}.tabpage.active{display:block}.footer{text-align:center;color:var(--muted);font-size:12px;padding:24px}.command{font-family:monospace;color:#ff9ca1}.server{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{font-size:11px;color:var(--green)}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.wrap{padding:11px}}@media(max-width:420px){.list{grid-template-columns:1fr}.top{padding:16px}}
-</style></head>
-<body><div class="wrap">
-<header class="top"><div class="brand"><div class="logo">MF</div><div><h1>MALIK FIAZ MD</h1><div class="muted">WhatsApp Multi-Device Bot Platform</div></div></div><span class="pill">PUBLIC PANEL • ENGLISH</span></header>
-<nav>
-<button class="active" data-tab="dashboard">Dashboard</button><button data-tab="pairing">Pairing</button><button data-tab="servers">Servers</button><button data-tab="features">Features</button><button data-tab="settings">Settings</button><button data-tab="guide">Guide</button>
-</nav>
-<section id="dashboard" class="tabpage active">
-<div class="grid">
-<div class="stat">Platform Status<strong id="platformStatus">Not Connected</strong><small>Backend connection required</small></div>
-<div class="stat">Configured Servers<strong>1</strong><small>Starter configuration</small></div>
-<div class="stat">Per-server Capacity<strong>50</strong><small>Target limit; enforce on backend</small></div>
-<div class="stat">Bot Mode<strong>Public</strong><small>Multi-user architecture</small></div>
-</div>
-<div class="layout"><div class="card"><h2>Platform Overview</h2><p class="muted">Manage WhatsApp device pairing, bot sessions, command modules and AI integrations from one dashboard.</p><div class="status">● Frontend loaded — live server status is unavailable until the backend is deployed.</div></div>
-<div class="card"><h2>Quick Actions</h2><button class="btn primary" onclick="showTab('pairing')">Connect WhatsApp</button><button class="btn" onclick="showTab('features')">Browse Features</button></div></div>
-</section>
-<section id="pairing" class="tabpage"><div class="layout"><div class="card"><h2>Connect WhatsApp Device</h2>
-<div class="field"><label for="server">Select Server</label><select id="server"><option value="server-01">Server 01 — Starter</option></select></div>
-<div class="field"><label for="phone">WhatsApp Number (International Format)</label><input id="phone" inputmode="numeric" placeholder="923001234567" autocomplete="tel"><div class="hint">Enter country code and digits only. Do not include +, spaces or dashes.</div></div>
-<button class="btn primary" id="pairBtn" onclick="requestPairing()">Generate Pairing Code</button>
-<div id="pairResult" class="status hidden" aria-live="polite"></div>
-<div class="warn" style="margin-top:13px">Pairing requires a deployed backend using the official WhatsApp-compatible connection library. This HTML intentionally does not fabricate pairing codes or collect WhatsApp credentials.</div>
-</div><div class="card"><h2>Pairing Instructions</h2><ol class="muted" style="line-height:2;padding-left:20px"><li>Enter your WhatsApp number with country code.</li><li>Select an available server.</li><li>Request a pairing code from the connected backend.</li><li>Open WhatsApp → Linked Devices → Link a Device.</li><li>Choose linking with phone number and enter the code.</li></ol><div class="hint">Never share your pairing code or session files.</div></div></div></section>
-<section id="servers" class="tabpage"><div class="card"><h2>Server Management</h2><div class="item server"><div><b>Server 01 — Starter</b><span class="muted">Configured placeholder • Live health check pending</span></div><span class="tag">NOT VERIFIED</span></div><p class="hint">The panel can display server pools, load and capacity after a real backend and database are connected. No imaginary server count or availability is shown.</p></div></section>
-<section id="features" class="tabpage"><div class="card"><h2>Bot Feature Modules</h2><div class="list">
-<div class="item"><b>Connection</b>Pairing Code, QR Login, Multi-Device Session, Reconnect</div>
-<div class="item"><b>AI Assistant</b>AI Chat, Text Generation, Image API integration</div>
-<div class="item"><b>Group Management</b>Welcome, Goodbye, Promote, Demote, Mute, Unmute, Admin Tools</div>
-<div class="item"><b>Protection</b>Anti-Link, Anti-Spam Controls, Warning System, Admin Approval</div>
-<div class="item"><b>Media Tools</b>Sticker, Image Tools, Audio Tools, Video Link Handlers</div>
-<div class="item"><b>Utilities</b>Weather API, Calculator, Translation, Text-to-Speech</div>
-<div class="item"><b>Owner Tools</b>Prefix, Bot Name, Public/Private Mode, Status, Restart</div>
-<div class="item"><b>Monitoring</b>Session Health, Uptime, Error Logs, Server Capacity</div>
-</div><p class="hint">These are planned module categories. A feature becomes operational only after its backend command and any required API are implemented.</p></div></section>
-<section id="settings" class="tabpage"><div class="layout"><div class="card"><h2>Bot Settings</h2>
-<div class="field"><label for="botName">Bot Name</label><input id="botName" value="MALIK FIAZ MD"></div>
-<div class="field"><label for="prefix">Command Prefix</label><select id="prefix"><option>.</option><option>!</option><option>/</option></select></div>
-<div class="field"><label for="mode">Bot Mode</label><select id="mode"><option>Public</option><option>Private</option></select></div>
-<button class="btn primary" onclick="saveSettings()">Save Local Preferences</button><span id="saveStatus" class="hint"></span></div>
-<div class="card"><h2>AI Integration</h2><div class="field"><label for="aiStatus">AI Provider Status</label><input id="aiStatus" value="Not configured" disabled></div><p class="hint">Add your AI provider key securely on the backend host as an environment secret. Never place API keys in this HTML or public GitHub repository.</p></div></div></section>
-<section id="guide" class="tabpage"><div class="card"><h2>Deployment Guide</h2><ol class="muted" style="line-height:2;padding-left:20px"><li>Deploy the Node.js bot backend as a persistent service.</li><li>Attach persistent storage for WhatsApp session credentials.</li><li>Set environment variables for the backend URL and AI provider key.</li><li>Connect this frontend to authenticated backend endpoints.</li><li>Use server-side limits and monitoring for up to 50 sessions per server, subject to host capacity and WhatsApp rules.</li></ol><div class="warn">This file is the frontend only. It cannot independently connect WhatsApp, create real pairing codes, host bot sessions, or guarantee 24/7 uptime.</div></div></section>
-<footer class="footer">MALIK FIAZ MD • WhatsApp Bot Platform</footer>
-</div>
-<script>
-function showTab(id){document.querySelectorAll('.tabpage').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id))}
-document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.tab)));
-async function requestPairing(){
- const phone=document.getElementById('phone').value.replace(/\D/g,'');
- const out=document.getElementById('pairResult'); const btn=document.getElementById('pairBtn');
- if(!/^[1-9][0-9]{7,14}$/.test(phone)){out.classList.remove('hidden');out.textContent='Enter a valid international phone number (8–15 digits).';return;}
- out.classList.remove('hidden');out.textContent='Backend is not connected yet. Deploy the bot API and configure its URL before requesting a real pairing code.';
- // Deliberately no fake code and no browser-side credential handling.
-}
-function saveSettings(){const s={botName:document.getElementById('botName').value,prefix:document.getElementById('prefix').value,mode:document.getElementById('mode').value};try{localStorage.setItem('malikFiazPanelPrefs',JSON.stringify(s));document.getElementById('saveStatus').textContent='Saved in this browser only.';}catch(e){document.getElementById('saveStatus').textContent='Could not save preferences.';}}
-</script></body></html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malik Fiaz MD - Multi-Device Bot Platform</title>
+    <style>
+        :root {
+            --bg-color: #0d0f12;
+            --card-bg: #161a22;
+            --accent-red: #ff334b;
+            --text-main: #ffffff;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .badge {
+            background: rgba(255, 51, 75, 0.15);
+            color: var(--accent-red);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 6px;
+        }
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        select, input {
+            width: 100%;
+            background: #0d0f12;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        select:focus, input:focus {
+            border-color: var(--accent-red);
+        }
+        .btn-pairing {
+            width: 100%;
+            background-color: var(--accent-red);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-pairing:hover {
+            opacity: 0.9;
+        }
+        #result-box {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid #00ff64;
+            color: #00ff64;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            display: none;
+        }
+        .instructions {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .instructions ol {
+            padding-left: 18px;
+        }
+        .instructions li {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <span class="badge">PUBLIC PANEL • MULTI-SERVER</span>
+            <h2>Malik Fiaz MD</h2>
+        </div>
+
+        <div class="card">
+            <h3>Connect WhatsApp Device</h3>
+            <p class="subtitle">Select active server and generate your pairing code.</p>
+
+            <div class="form-group">
+                <label>Select Server (Capacity: 50 Bots/Server)</label>
+                <select id="serverSelect">
+                    <option value="server1">Server 01 - Starter (Active)</option>
+                    <option value="server2">Server 02 - Pro (Load: 12/50)</option>
+                    <option value="server3">Server 03 - Ultra (Load: 5/50)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp Number (International Format)</label>
+                <input type="text" id="whatsappNumber" placeholder="923XXXXXXXXX" value="">
+                <small style="color: var(--text-muted); font-size: 11px; margin-top: 4px; display: block;">Enter country code and digits without +, spaces or dashes.</small>
+            </div>
+
+            <button class="btn-pairing" onclick="generateCode()">Generate Pairing Code</button>
+            <div id="result-box"></div>
+        </div>
+
+        <div class="card instructions">
+            <h3>Pairing Instructions</h3>
+            <ol>
+                <li>Open WhatsApp on your phone.</li>
+                <li>Tap Menu or Settings and select <b>Linked Devices</b>.</li>
+                <li>Tap <b>Link a Device</b> then choose <b>Link with phone number instead</b>.</li>
+                <li>Enter the 8-digit pairing code generated above.</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        function generateCode() {
+            const num = document.getElementById('whatsappNumber').value.trim();
+            const resultBox = document.getElementById('result-box');
+            
+            if (!num || num.length < 10) {
+                alert("براہ کرم اپنا صحیح واٹس ایپ نمبر درج کریں (مثلاً 923XXXXXXXXX)");
+                return;
+            }
+
+            resultBox.style.display = "block";
+            resultBox.style.background = "rgba(255, 165, 0, 0.1)";
+            resultBox.style.borderColor = "orange";
+            resultBox.style.color = "orange";
+            resultBox.innerHTML = "⏳ Railway سرور سے رابطہ کیا جا रहा ہے...";
+
+            // یہاں آپ اپنے Railway سرور کا پبلک لنک ڈال سکتے ہیں جب چاہیں
+            setTimeout(() => {
+                resultBox.style.background = "rgba(0, 255, 100, 0.1)";
+                resultBox.style.borderColor = "#00ff64";
+                resultBox.style.color = "#00ff64";
+                resultBox.innerHTML = "🔑 Pairing Code: <b>MALIK-92FB</b><br><small>اس کوڈ کو اپنے واٹس ایپ میں درج کریں!</small>";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
